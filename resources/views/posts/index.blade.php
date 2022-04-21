@@ -23,7 +23,7 @@
                 <td>{{ $post->id }}</th>
                 <td>{{ $post['title'] }}</td>
                 <td>{{ $post->user->name }}</td>
-                <td>{{ $post->created_at->isoFormat('YYYY-MM-DD') }}</td>
+                <td>{{ $post->created_at->isoFormat('YYYY-MM-DD' ) }}</td>
 
 
                 @if(!isset($post->deleted_at))

@@ -21,13 +21,21 @@ class PostController extends Controller
     {
        // $data=Post::all();
       //  dd($data);
-        $posts = Post::withTrashed()->get();
+        $posts = Post::withTrashed()->paginate(7);
 
        //  dd($posts); //for debugging
         return view('posts.index',[
             'posts' => $posts,
         ]);
     }
+    public function paginate($page) {
+        $per_page = 7;
+        $posts = Post::withTrashed()->paginate($per_page, ['*'], 'page', $page);
+        return view("posts.index", [
+            'posts' => $posts
+        ]);
+    }
+
 
     public function create()
     {
@@ -102,13 +110,7 @@ class PostController extends Controller
     }
 
 
-//    public function paginate($page) {
-//        $per_page = 3;
-//    //    $posts = Post::withTrashed()->paginate($per_page, ['*'], 'page', $page);
-//        return view("posts.index", [
-//            'posts' => $posts
-//        ]);
-//    }
+
 
 
 
