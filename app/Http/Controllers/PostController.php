@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
@@ -44,11 +46,17 @@ class PostController extends Controller
         return view('posts.create',['users'=>$users]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
         // get request data
+
+
+        // customize the error messages
+
         $data= request()->all();
        // dd($data);
+
+
 
         // store request data in database
         Post::create([

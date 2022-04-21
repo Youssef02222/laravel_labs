@@ -8,11 +8,34 @@
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="">
+            @if ($errors->has('title'))
+                <div class="alert alert-danger">
+                      <strong>{{ $errors->first('title') }}.</strong>
+                </div>
+
+            @endif
         </div>
+
+
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
             <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            @if ($errors->has('description'))
+                     <div class="alert alert-danger">
+                             <strong>{{ $errors->first('description') }}.</strong>
+                     </div>
+            @endif
         </div>
+
+{{--        @if ($errors->any())--}}
+{{--            <div class="alert alert-danger">--}}
+{{--                <ul>--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        <li>{{ $error }}</li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        @endif--}}
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>

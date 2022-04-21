@@ -34,9 +34,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::get('/posts/page/{page}', [PostController::class, 'paginate'])->name('posts.paginate');
 Route::get('/posts/{post}/edit',[PostController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{post}', [PostController::class, 'update'] )->name('posts.update');
-
-
 Route::delete('/posts/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
-
 Route::get('/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
 Route::delete('/posts/{post}/force_delete', [PostController::class, 'force_destroy'])->name('posts.force_destroy');
+
