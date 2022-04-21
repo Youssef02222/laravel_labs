@@ -73,6 +73,7 @@
                                 <td>
                                  <button type="submit"  class="btn btn-info">View</button>
                                     <button type="submit" class="btn btn-primary ms-1">Edit</button>
+
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </td>
                             </tr>

@@ -18,21 +18,50 @@
         </thead>
         <tbody>
         @foreach ( $posts as $post)
-            <tr>
-                <td>{{ $post['id'] }}</th>
-                <td>{{ $post['title'] }}</td>
-                <td>{{ $post['post_creator'] }}</td>
-                <td>{{ $post['created_at'] }}</td>
-                <td>
-                    <a href="{{  route( 'posts.show',[ 'post'=>$post['id'] ] )  }}" class="btn btn-info">View</a>
-                    <a href="{{  route( 'posts.edit',[ 'post'=>$post['id'] ] )  }}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger">Delete</a>
 
-                </td>
+            <tr>
+                <td>{{ $post->id }}</th>
+                <td>{{ $post['title'] }}</td>
+                <td>{{ $post->user->name }}</td>
+                <td>{{ $post->created_at->isoFormat('YYYY-MM-DD') }}</td>
+
+
+                @if(!isset($post->deleted_at))
+                    <td class="d-flex">
+                        <a href="{{ route('posts.show', ['post' => $post['id']]) }}" class="btn btn-info me-1">View</a>
+                        <a href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="btn btn-primary me-1 mr-2 ml-2">Edit</a>
+                        <form action="{{ route('posts.destroy', ['post'=> $post->id] )}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                @else
+                    <td class="d-flex">
+                        <a href="{{ route('posts.restore', ['post' => $post['id']]) }}" class="btn btn-warning me-1 mr-2 ml-2">Restore</a>
+                        <form action="{{ route('posts.force_destroy', ['post'=> $post->id] )}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" onclick="return confirm('Are you sure to delete forever?')" class="btn btn-danger">Force Delete</button>
+                        </form>
+                    </td>
+                @endif
+
+
+
             </tr>
         @endforeach
 
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>1]) }}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>2]) }}">1</a></li>
+            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>3]) }}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>4]) }}">3</a></li>
+            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>5]) }}">Next</a></li>
+        </ul>
+    </nav>
 @endsection
 

@@ -16,17 +16,16 @@
 
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Description</label>
-            <textarea type="text" name="Post_dec" class="form-control form-control-lg" rows="3" >{{ $post['title'] }}</textarea>
+            <textarea type="text" name="Post_dec" class="form-control form-control-lg" rows="3" >{{ $post['description'] }}</textarea>
         </div>
 
         <div class="form-group">
             <label>Post Creator</label>
-            <select class="form-control"  name="Post_auther">
-                    @foreach($posts as $row)
+            <select class="form-control"  name="Post_auther" >
 
-                       <option>{{ $row['post_creator'] }}</option>
+                       <option value="{{$post->user->id}}">{{ $post->user->name }}</option>
 
-                @endforeach
+
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">update</button>
