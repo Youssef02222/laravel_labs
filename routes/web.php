@@ -38,3 +38,7 @@ Route::delete('/posts/{post}/delete', [PostController::class, 'destroy'])->name(
 Route::get('/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
 Route::delete('/posts/{post}/force_delete', [PostController::class, 'force_destroy'])->name('posts.force_destroy');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
