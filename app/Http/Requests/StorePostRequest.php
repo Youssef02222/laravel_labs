@@ -39,7 +39,7 @@ class StorePostRequest extends FormRequest
     // function to customize the error messages
     public function messages(){
         return [
-            'title.required'=>'My own message',
+            'title.required'=>'title is required and must be more than 3 characters',
         ];
     }
 }

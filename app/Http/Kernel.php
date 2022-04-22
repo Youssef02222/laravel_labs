@@ -64,4 +64,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+
+    // we can make middle ware group ex:
+//    'test-group'=>[
+//        class1,
+//        class2,
+//        class3
+//        ];
 }

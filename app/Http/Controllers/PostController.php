@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 
@@ -46,6 +47,32 @@ class PostController extends Controller
         return view('posts.create',['users'=>$users]);
     }
 
+
+
+    public function comment($id){
+        $comments = Comment::all();
+        $users = User::all();
+        $post_id=$id;
+        return view('posts.com',['comments'=> $comments,'users'=> $users , 'post_id'=>$post_id],);
+    }
+
+    public function storeComment(){
+        $data = request()->all();
+
+
+        Comment::create([
+
+            'user_id'=>$data['post_creator'],
+            'post_id'=>$data['id'],
+            'comment' => $data['addcomm'],
+
+
+
+        ]);
+
+        return redirect()->route('posts.index');
+    }
+
     public function store(StorePostRequest $request)
     {
         // get request data
@@ -73,8 +100,9 @@ class PostController extends Controller
     {
       // $post= Post::where('id',$postId)->first();
       // dd($posts);
+        $comments=Comment::all();
         $post=Post::find($postId);
-        return view('posts.show',['post'=>$post]);
+        return view('posts.show',['post'=>$post,'comments'=>$comments]);
     }
 
     public function edit($postId){

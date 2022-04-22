@@ -52,6 +52,25 @@
 </div>
 
 
+<div class="card mt-4" >
+    <div class="card-header">
+        Comments
+    </div>
+    <div>
+
+        @foreach($comments as $comment)
+{{--         //  @if($comment->user_id==)--}}
+            @if($comment->post_id==$post->id)
+                <div>
+                    <span class="h6">{{$comment->user->name}}</span>
+                    <span> :- {{ $comment->comment }}</span>
+                </div>
+            @endif
+        @endforeach
+
+    </div>
+</div>
+
 
 
 

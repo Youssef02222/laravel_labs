@@ -30,6 +30,7 @@
                     <td class="d-flex">
                         <a href="{{ route('posts.show', ['post' => $post['id']]) }}" class="btn btn-info me-1">View</a>
                         <a href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="btn btn-primary me-1 mr-2 ml-2">Edit</a>
+                        <a href="{{ route('posts.com', ['id' => $post['id']]) }}" class="btn btn-success me-1">Comments</a>
                         <form action="{{ route('posts.destroy', ['post'=> $post->id] )}}" method="post">
                             @csrf
                             @method('delete')
