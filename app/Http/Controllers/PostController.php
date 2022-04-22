@@ -13,24 +13,18 @@ class PostController extends Controller
 {
 
     public function return_posts(){
-//        return  $posts = [
-//            ['id' => 1, 'title' => 'Laravel', 'post_creator' => 'Ahmed','description'=>'the post body' ,'created_at' => '2022-04-16 10:37:00'],
-//            ['id' => 2, 'title' => 'PHP', 'post_creator' => 'Mohamed','description'=>'the post body' ,'created_at' => '2022-04-16 10:37:00'],
-//            ['id' => 3, 'title' => 'Javascript', 'post_creator' => 'Ali','description'=>'the post body' ,'created_at' => '2022-04-16 10:37:00'],
-//        ];
+
         return $posts=Post::all();
     }
     public function index()
     {
-       // $data=Post::all();
-      //  dd($data);
         $posts = Post::withTrashed()->paginate(7);
-
-       //  dd($posts); //for debugging
         return view('posts.index',[
             'posts' => $posts,
         ]);
     }
+
+
     public function paginate($page) {
         $per_page = 7;
         $posts = Post::withTrashed()->paginate($per_page, ['*'], 'page', $page);
@@ -39,7 +33,6 @@ class PostController extends Controller
         ]);
     }
 
-
     public function create()
     {
         $users=User::all();
@@ -47,21 +40,10 @@ class PostController extends Controller
         return view('posts.create',['users'=>$users]);
     }
 
-
-
-
-
     public function store(StorePostRequest $request)
     {
-        // get request data
-
-
         // customize the error messages
-
         $data= request()->all();
-       // dd($data);
-
-
 
         // store request data in database
         Post::create([
@@ -69,15 +51,13 @@ class PostController extends Controller
             'description'=>$data['description'],
             'user_id'=>$data['user'],
         ]);
-
         // redirect to index
         return to_route('posts.index');
     }
 
     public function show($postId)
     {
-      // $post= Post::where('id',$postId)->first();
-      // dd($posts);
+
         $comments=Comment::all();
         $post=Post::find($postId);
         $userid=Auth::id();
@@ -92,9 +72,6 @@ class PostController extends Controller
 
     public function update($postId,Request $req){
           $newData=$req->all();
-//          $posts= Post::all();
-//          $posts[$postId-1]['title']=$newData['Post_title'];
-//          $posts[$postId-1]['post_creator']=$newData['Post_auther'];
         Post::where('id', $postId)->update([
             'title' => $newData['Post_title'],
             'description' =>$newData['Post_dec'] ,
@@ -102,10 +79,6 @@ class PostController extends Controller
         ]);
         return to_route('posts.index');
     }
-
-
-
-
 
 
     public function destroy($postId) {
