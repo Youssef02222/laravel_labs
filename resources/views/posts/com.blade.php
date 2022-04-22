@@ -21,9 +21,9 @@
         <div class="mb-3">
             <label for="post_creator" class="form-label">Post Creator</label>
             <select name="post_creator" class="form-control" id="post_creator" >
-                @foreach($users as $user)
+
                     <option  value="{{$user->id}}" >{{$user->name}}</option>
-                @endforeach
+
             </select>
         </div>
 

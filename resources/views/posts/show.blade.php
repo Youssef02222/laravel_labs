@@ -59,12 +59,37 @@
     <div>
 
         @foreach($comments as $comment)
-{{--         //  @if($comment->user_id==)--}}
-            @if($comment->post_id==$post->id)
-                <div>
-                    <span class="h6">{{$comment->user->name}}</span>
-                    <span> :- {{ $comment->comment }}</span>
-                </div>
+
+{{--                <div>--}}
+{{--                    <span class="h6">{{$comment->user->name}}</span>--}}
+{{--                    <span> :- {{ $comment->comment }}</span>--}}
+{{--                </div>--}}
+                @if($userid==$comment->user_id && $comment->post_id==$post->id)
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="h6">{{$comment->user->name}}</span>
+                            <span> :  {{ $comment->comment }}..............</span>
+                            <br><br>
+                            <div class="d-flex">
+                            <a href="{{ route('comments.update', ['comment' => $comment]) }}" class="btn btn-primary me-1 mr-2 ml-2">Edit</a>
+                            <a href="{{ route('posts.com', ['id' => $post['id']]) }}" class="btn btn-success me-1">Add other comment</a>
+                            <form action="{{ route('comments.destroy', ['comment' => $comment] )}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
+                            </form>
+                            </div>
+
+
+                        </li>
+
+                    </ul>
+
+            @elseif($comment->post_id==$post->id)
+                <ul class="list-group">
+                    <li class="list-group-item"><span class="h6">{{$comment->user->name}}</span>
+                        <span> :  {{ $comment->comment }}</span></li>
+
+                </ul>
             @endif
         @endforeach
 

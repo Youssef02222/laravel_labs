@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -49,29 +49,7 @@ class PostController extends Controller
 
 
 
-    public function comment($id){
-        $comments = Comment::all();
-        $users = User::all();
-        $post_id=$id;
-        return view('posts.com',['comments'=> $comments,'users'=> $users , 'post_id'=>$post_id],);
-    }
 
-    public function storeComment(){
-        $data = request()->all();
-
-
-        Comment::create([
-
-            'user_id'=>$data['post_creator'],
-            'post_id'=>$data['id'],
-            'comment' => $data['addcomm'],
-
-
-
-        ]);
-
-        return redirect()->route('posts.index');
-    }
 
     public function store(StorePostRequest $request)
     {
@@ -102,7 +80,8 @@ class PostController extends Controller
       // dd($posts);
         $comments=Comment::all();
         $post=Post::find($postId);
-        return view('posts.show',['post'=>$post,'comments'=>$comments]);
+        $userid=Auth::id();
+        return view('posts.show',['post'=>$post,'comments'=>$comments,'userid'=>$userid]);
     }
 
     public function edit($postId){

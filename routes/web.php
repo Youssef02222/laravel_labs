@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
+use \App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,8 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::get('/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
     Route::delete('/posts/{post}/force_delete', [PostController::class, 'force_destroy'])->name('posts.force_destroy');
-    Route::get('/posts/comment/{id}',[PostController::class, 'comment'])->name('posts.com');
-    Route::post('/posts/comment',[PostController::class, 'storeComment'])->name('comments.store');
+    Route::get('/posts/comment/{id}',[CommentController::class, 'comment'])->name('posts.com');
+    Route::post('/posts/comment',[CommentController::class, 'storeComment'])->name('comments.store');
+    Route::put('/posts/comment/{comment}', [CommentController::class, 'update'] )->name('comments.update');
+    Route::delete('/posts/comments/{comment}/delete', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::get('/posts/comments/{post}/restore', [CommentController::class, 'restore'])->name('comments.restore');
+    Route::delete('/posts/comments/{post}/force_delete', [CommentController::class, 'force_destroy'])->name('comments.force_destroy');
 });
 
 
