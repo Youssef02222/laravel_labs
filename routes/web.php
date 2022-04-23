@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/comments/{comment}/delete', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::get('/posts/comments/{post}/restore', [CommentController::class, 'restore'])->name('comments.restore');
     Route::delete('/posts/comments/{post}/force_delete', [CommentController::class, 'force_destroy'])->name('comments.force_destroy');
+    Route::get('/posts/checkSlug',[PostController::class,'checkSlug'])->name('posts.checkSlug');
 });
 
 

@@ -7,15 +7,19 @@
         @csrf
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="">
+            <input type="text" name="title" class="form-control" id="title" placeholder="">
             @if ($errors->has('title'))
                 <div class="alert alert-danger">
                       <strong>{{ $errors->first('title') }}.</strong>
                 </div>
 
             @endif
-        </div>
+        </div >
 
+        <div class="mb-3" >
+        <label for="exampleFormControlInput1" class="form-label">Slug</label>
+        <input type="text" name="slug"  class="form-control" id="slug" placeholder="">
+        </div>
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
@@ -49,5 +53,21 @@
 
         <button class="btn btn-success">Create</button>
     </form>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#title').change(function (e){
+            $.get('{{ route('posts.checkSlug') }}',
+                { 'title':$(this).val() },
+                function (data){
+                $('#slug').val(data.slug);
+                }
+            );
+        });
+    </script>
 @endsection
 

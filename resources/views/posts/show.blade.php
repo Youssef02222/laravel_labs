@@ -22,6 +22,10 @@
             <h5 class="card-title mr-2">Description:</h5> <p class="card-text">{{$post['description']}}</p>
         </div>
 
+        <div class="d-flex">
+            <h5 class="card-title mr-2">Slug:</h5> <p class="card-text">{{$post['slug']}}</p>
+        </div>
+
 
 
 

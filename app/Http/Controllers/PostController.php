@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,7 @@ class PostController extends Controller
             'title'=>$data['title'],
             'description'=>$data['description'],
             'user_id'=>$data['user'],
+            'slug'=>SlugService::createSlug(Post::class,'slug',$data['title']),
         ]);
         // redirect to index
         return to_route('posts.index');
@@ -57,9 +59,9 @@ class PostController extends Controller
 
     public function show($postId)
     {
-
         $comments=Comment::all();
-        $post=Post::find($postId);
+$post=Post::find($postId);
+
         $userid=Auth::id();
         return view('posts.show',['post'=>$post,'comments'=>$comments,'userid'=>$userid]);
     }
@@ -95,6 +97,11 @@ class PostController extends Controller
     public function force_destroy($postId) {
         Post::where('id', $postId)->forceDelete();
         return redirect()->route('posts.index');
+    }
+
+    public function checkSlug(Request $request){
+        $slug=SlugService::createSlug(Post::class,'slug',$request->title);
+        return response()->view("hello");
     }
 
 
