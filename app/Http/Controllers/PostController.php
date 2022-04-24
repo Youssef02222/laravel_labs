@@ -19,20 +19,22 @@ class PostController extends Controller
     }
     public function index()
     {
-        $posts = Post::withTrashed()->paginate(7);
+        $posts = Post::paginate(4);
+
+       // dd($posts);
         return view('posts.index',[
             'posts' => $posts,
         ]);
     }
 
 
-    public function paginate($page) {
-        $per_page = 7;
-        $posts = Post::withTrashed()->paginate($per_page, ['*'], 'page', $page);
-        return view("posts.index", [
-            'posts' => $posts
-        ]);
-    }
+//    public function paginate($page) {
+//        $per_page = 7;
+//        $posts = Post::withTrashed()->paginate($per_page); //, ['*'], 'page', $page
+//        return view("posts.index", [
+//            'posts' => $posts
+//        ]);
+//    }
 
     public function create()
     {
@@ -43,15 +45,28 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        $this->validate(request(),[
+
+            'photo' => 'required|mimes:jpeg,png,bmp',
+
+        ]);
+       // dd($request);
+        //save photo
+        $file_extension=$request -> photo -> getClientOriginalExtension();
+        $file_name=time().'.'.$file_extension;
+        $path='photos';
+        $request->photo->move($path,$file_name);
         // customize the error messages
         $data= request()->all();
-
+         //dd($file_name);
         // store request data in database
         Post::create([
             'title'=>$data['title'],
             'description'=>$data['description'],
             'user_id'=>$data['user'],
             'slug'=>SlugService::createSlug(Post::class,'slug',$data['title']),
+            'photo'=>"$file_name",
+
         ]);
         // redirect to index
         return to_route('posts.index');

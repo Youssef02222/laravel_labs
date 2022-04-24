@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     public function comment($id){
+        //dd($id);
         $comments = Comment::all();
         $user =Auth::user();
         $post_id=$id;
@@ -34,16 +35,24 @@ class CommentController extends Controller
         return redirect()->route('posts.index');
     }
 
+    public function edit($postId){
+        $users = User::all();
+        $comment = Comment::find($postId);
+        return view('posts.editcom' , ['comment'=>$comment, 'users'=> $users]);
+    }
 
     public function update($comId,Request $req){
+      // dd('fghhfghgf');
+
         $newData=$req->all();
         // ??
-        DB::table('comments')
-            ->where('id', $comId)
-            ->update([
-                'comment'     => $newData['comment']
-            ]);
-        return to_route('posts.show');
+
+
+       // dd($newData);
+        Comment::find($comId)->update([ 'comment' => $newData['comment'] ]);
+
+
+        return to_route('posts.index');
     }
 
     public function destroy($postId) {

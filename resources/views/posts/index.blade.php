@@ -55,14 +55,15 @@
 
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>1]) }}">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>2]) }}">1</a></li>
-            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>3]) }}">2</a></li>
-            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>4]) }}">3</a></li>
-            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>5]) }}">Next</a></li>
-        </ul>
-    </nav>
+{{--    <nav aria-label="Page navigation example">--}}
+{{--        <ul class="pagination">--}}
+{{--            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>1]) }}">Previous</a></li>--}}
+{{--            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>2]) }}">1</a></li>--}}
+{{--            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>3]) }}">2</a></li>--}}
+{{--            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>4]) }}">3</a></li>--}}
+{{--            <li class="page-item"><a class="page-link" href="{{ route('posts.paginate', ['page'=>5]) }}">Next</a></li>--}}
+{{--        </ul>--}}
+{{--    </nav>--}}
+    {{$posts->links()}}
 @endsection
 

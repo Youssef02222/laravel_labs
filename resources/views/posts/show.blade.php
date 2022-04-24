@@ -26,6 +26,11 @@
             <h5 class="card-title mr-2">Slug:</h5> <p class="card-text">{{$post['slug']}}</p>
         </div>
 
+        <div class="d-flex">
+
+            <img src="{{ asset('photos/'.$post->photo) }}" class="card-title mr-2" width="400px" height="300px">
+        </div>
+
 
 
 
@@ -74,7 +79,7 @@
                             <span> :  {{ $comment->comment }}..............</span>
                             <br><br>
                             <div class="d-flex">
-                            <a href="{{ route('comments.update', ['comment' => $comment]) }}" class="btn btn-primary me-1 mr-2 ml-2">Edit</a>
+                            <a href="{{ route('comments.edit', ['comment' => $comment]) }}" class="btn btn-primary me-1 mr-2 ml-2">Edit</a>
                             <a href="{{ route('posts.com', ['id' => $post['id']]) }}" class="btn btn-success me-1">Add other comment</a>
                             <form action="{{ route('comments.destroy', ['comment' => $comment] )}}" method="post">
                                 @csrf

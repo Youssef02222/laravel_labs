@@ -11,7 +11,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
     use SoftDeletes;
-    protected $fillable=['title','description','user_id','slug'];
+    protected $fillable=['title','description','user_id','slug','photo'];
     use HasFactory;
 
     public function user(){

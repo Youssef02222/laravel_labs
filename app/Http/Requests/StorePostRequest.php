@@ -28,7 +28,7 @@ class StorePostRequest extends FormRequest
                 'title'=>['required','min:3','unique:posts,title'],
                 'description'=>['required'],
                  'slug'=>[
-                     'required',
+
                      'alpha_dash',
                      'unique:posts',
                  ]

@@ -3,7 +3,7 @@
 @section('title')Create @endsection
 
 @section('content')
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -17,8 +17,8 @@
         </div >
 
         <div class="mb-3" >
-        <label for="exampleFormControlInput1" class="form-label">Slug</label>
-        <input type="text" name="slug"  class="form-control" id="slug" placeholder="">
+        <label  class="form-label">Image</label>
+        <input type="file" name="photo"  class="form-control" id="photo" placeholder="">
         </div>
 
         <div class="mb-3">
@@ -54,20 +54,6 @@
         <button class="btn btn-success">Create</button>
     </form>
 
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#title').change(function (e){
-            $.get('{{ route('posts.checkSlug') }}',
-                { 'title':$(this).val() },
-                function (data){
-                $('#slug').val(data.slug);
-                }
-            );
-        });
-    </script>
+
 @endsection
 
