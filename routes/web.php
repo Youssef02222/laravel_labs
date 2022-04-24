@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController;
+use App\Models\User;
 use App\Http\Controllers\PostController;
 use \App\Http\Controllers\CommentController;
+use Laravel\Socialite\Facades\Socialite;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +54,47 @@ Route::middleware('auth')->group(function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+/////// third party auth using socialite
+
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login_with_github');
+
+Route::get('/auth/callback', function () {
+    //$user = Socialite::driver('github')->user();
+    //dd($user);
+    $githubUser = Socialite::driver('github')->user();
+
+    $user = User::where('github_id', $githubUser->id)->first();
+
+    if ($user) {
+        $user->update([
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    } else {
+        $user = User::create([
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_id' => $githubUser->id,
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    }
+
+    Auth::login($user);
+
+    return redirect('/posts');
+
+});
+
+
+// google auth
+Route::get('auth/google', [GoogleController::class, 'auth'])->name('login.google');
+Route::get('auth/google/callback', [GoogleController::class, 'callback']);
 
 
 

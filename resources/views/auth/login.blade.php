@@ -63,6 +63,14 @@
                                     </a>
                                 @endif
                             </div>
+                            <div class="d-flex">
+                            <a href="{{route('login_with_github')}}" class="btn btn-dark mt-2 m-xl-3" style="width: 40%">
+                                Lgin with Github
+                            </a>
+                            <a  href="{{route('login.google')}}" class="btn btn-danger mt-2 m-xl-3" style="width: 40%">
+                                Lgin with Goggle
+                            </a>
+                            </div>
                         </div>
                     </form>
                 </div>
